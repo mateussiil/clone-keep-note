@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
+  const [list, setList] = useState([]);
+  const [note, setNote] = useState({ title:"",description: ""});
+  const { title , description } = note;
+
+  function handleSubmit(e){
+    e.preventDefault();
+    if(description){
+      setList([note ,...list ])
+      setNote({title:"", description:""})
+    }
+  }
+
+  function handleChanged(e){
+    note[e.target.name] = e.target.value
+    setNote({ ...note });
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="form">
+        <form onSubmit={handleSubmit}>
+          <input name="title" value={title} placeholder="Titulo" onChange={handleChanged}/>
+          <input name="description" value={description} placeholder="Adicionar ..." onChange={handleChanged}/>
+          <button type="submit"/>
+        </form>
+      </div>
+      <div>
+        <ul className="list-ul">
+          {list.map(nota => (
+            <div className="item">
+              <li className="title">{nota.title}</li>
+              <li className="description">{nota.description}</li>
+            </div>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 }
