@@ -21,12 +21,14 @@ function App() {
 
   return (
     <div className="App">
-      <div className="form">
-        <form onSubmit={handleSubmit}>
-          <input name="title" value={title} placeholder="Titulo" onChange={handleChanged}/>
-          <input name="description" value={description} placeholder="Adicionar ..." onChange={handleChanged}/>
-          <button type="submit"/>
-        </form>
+      <div className="form-div" >
+        <div className="mostrar">
+          <form onSubmit={handleSubmit}>
+            <input className="input top" name="title" value={title} placeholder="Titulo" autocomplete="off" onChange={handleChanged}/>
+            <input className="input" name="description" value={description} placeholder="Adicionar ..." autocomplete="off" onChange={handleChanged}/>
+            <button type="submit"/>
+          </form>
+        </div>
       </div>
       <div>
         <ul className="list-ul">
