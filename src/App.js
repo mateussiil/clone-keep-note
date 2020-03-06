@@ -26,7 +26,7 @@ function App() {
           <form onSubmit={handleSubmit}>
             <input className="input top" name="title" value={title} placeholder="Titulo" autocomplete="off" onChange={handleChanged}/>
             <input className="input" name="description" value={description} placeholder="Adicionar ..." autocomplete="off" onChange={handleChanged}/>
-            <button type="submit"/>
+            <button type="submit">Enviar</button>
           </form>
         </div>
       </div>
