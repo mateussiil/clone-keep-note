@@ -1,16 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 
-function App() {
-  const [list, setList] = useState([]);
-  const [note, setNote] = useState({ title:"",description: ""});
-  const { title , description } = note;
+import api from './services/api';
 
-  function handleSubmit(e){
+function App() {
+  const [ notes, setNotes ]=useState([]);
+  const [ note, setNote ] = useState({ title:"", content: ""});
+  const { title , content } = note;
+
+  useEffect(()=>{
+    async function loadNotes(){
+      const response = await api.get('/notes');
+      console.log(response);
+      setNotes(response);
+    }
+    loadNotes();
+  },[]);
+
+  async function handleSubmit(e){
     e.preventDefault();
-    if(description){
-      setList([note ,...list ])
-      setNote({title:"", description:""})
+    // const response = api.post('/',data);
+    if(content){
+      console.log(content);
+      // setList([note ,...list ])
+      // setNote({title:"", content:""})
     }
   }
 
@@ -21,21 +34,22 @@ function App() {
 
   return (
     <div className="App">
+      <header/>
       <div className="form-div" >
         <div className="mostrar">
           <form onSubmit={handleSubmit}>
             <input className="input top" name="title" value={title} placeholder="Titulo" autocomplete="off" onChange={handleChanged}/>
-            <input className="input" name="description" value={description} placeholder="Adicionar ..." autocomplete="off" onChange={handleChanged}/>
+            <input className="input" name="content" value={content} placeholder="Adicionar ..." autocomplete="off" onChange={handleChanged}/>
             <button type="submit">Enviar</button>
           </form>
         </div>
       </div>
       <div>
         <ul className="list-ul">
-          {list.map(nota => (
+          {notes.map(nota => (
             <div className="item">
               <li className="title">{nota.title}</li>
-              <li className="description">{nota.description}</li>
+              <li className="content">{nota.content}</li>
             </div>
             ))}
         </ul>
